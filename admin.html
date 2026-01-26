@@ -490,48 +490,52 @@
         
         function generateVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText) {
             return `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse;">
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse; background: transparent !important; background-color: transparent !important;">
   <tr>
-    <td valign="top" align="left" style="padding: 0;">
-      <table cellpadding="0" cellspacing="0" border="0">
+    <td valign="top" align="left" style="padding: 0; background: transparent !important; background-color: transparent !important;">
+      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important;">
         <tr>
-          <td valign="top" align="left" style="padding: 0 15px 15px 0; width: 218px;">
-            <img src="${photo}" alt="Profile" width="170" height="170" style="width: 170px; height: 170px; border-radius: 50%; display: block;">
+          <td valign="top" align="left" style="padding: 0 12px 12px 0; background: transparent !important; background-color: transparent !important;">
+            <img src="${photo}" alt="Profile" width="120" height="120" style="width: 120px; height: 120px; border-radius: 50%; display: block; border: 3px solid #210529; box-sizing: border-box;">
           </td>
-          <td valign="top" style="padding: 0;">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+          <td valign="top" style="padding: 0; background: transparent !important; background-color: transparent !important;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: transparent !important; background-color: transparent !important;">
               <tr>
-                <td>
-                  <h1 style="font-size: 24px; color: #210529; font-weight: 700; margin: 0 0 5px 0; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(name)}</h1>
-                  <p style="font-size: 16px; color: #210529; font-weight: 400; margin: 0 0 0 0; padding-bottom: 10px; border-bottom: 1px solid #EBEBEB; line-height: 1.3; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(position)}</p>
-                  <div style="margin: 8px 0;">
-                    <a href="mailto:${email}" style="font-size: 12px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
-                    <span style="font-size: 13px; color: #210529; font-weight: 400; display: block; margin: 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
+                <td style="background: transparent !important; background-color: transparent !important;">
+                  <h1 style="font-size: 18px; color: #210529; font-weight: 700; margin: 0 0 4px 0; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(name)}</h1>
+                  <p style="font-size: 14px; color: #210529; font-weight: 400; margin: 0 0 0 0; padding-bottom: 8px; border-bottom: 1px solid #EBEBEB; line-height: 1.3; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(position)}</p>
+                  <div style="margin: 6px 0;">
+                    <a href="mailto:${email}" style="font-size: 11px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
+                    <span style="font-size: 11px; color: #210529; font-weight: 400; display: block; margin: 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
                   </div>
-                  <div style="margin: 12px 0 4px 0; width: 100%;">
-                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                      <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
-                    </span>
-                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                      <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
-                    </span>
-                    <span style="display: inline-block; margin-right: 32px; vertical-align: middle;">
-                      <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
-                    </span>
-                    <span style="display: inline-block; margin-left: 16px; margin-right: 8px; vertical-align: middle;">
-                      <img src="ima.png" alt="G2 High Performer" width="40" height="40" style="width: 40px; height: 40px; display: block;">
-                    </span>
-                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                      <img src="getapp.png" alt="GetApp Best" width="40" height="40" style="width: 40px; height: 40px; display: block;">
-                    </span>
-                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                      <img src="software.png" alt="Software Advice Best Recommended 2023" width="40" height="40" style="width: 40px; height: 40px; display: block;">
-                    </span>
-                    <span style="display: inline-block; vertical-align: middle;">
-                      <img src="capterra.png" alt="Capterra Best Ease of Use 2023" width="40" height="40" style="width: 40px; height: 40px; display: block;">
-                    </span>
+                  <div style="margin: 10px 0 4px 0; width: 100%;">
+                    <div style="display: inline-block; vertical-align: middle;">
+                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                        <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                        <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; margin-right: 24px; vertical-align: middle;">
+                        <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; vertical-align: middle;">
+                        <div style="display: inline-block;  margin-right: 6px; vertical-align: middle;">
+                          <img src="ima.png" alt="G2 High Performer" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                          <img src="getapp.png" alt="GetApp Best" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                          <img src="software.png" alt="Software Advice Best Recommended 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                        <div style="display: inline-block; vertical-align: middle;">
+                          <img src="capterra.png" alt="Capterra Best Ease of Use 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <a href="${website}" style="font-size: 11px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 4px 0 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
+                  <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 3px 0 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
                 </td>
               </tr>
             </table>
@@ -545,47 +549,51 @@
         
         function generateVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText) {
             return `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse;">
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse; background: transparent !important; background-color: transparent !important;">
   <tr>
-    <td valign="top" align="left" style="padding: 0;">
-      <table cellpadding="0" cellspacing="0" border="0">
+    <td valign="top" align="left" style="padding: 0; background: transparent !important; background-color: transparent !important;">
+      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important;">
         <tr>
-          <td valign="top" align="left" style="padding: 0 15px 15px 0; width: 218px;">
-            <img src="${logo}" alt="giftmall" width="170" height="170" style="width: 170px; height: 170px; border-radius: 50%; display: block;">
+          <td valign="top" align="left" style="padding: 0 12px 12px 0; background: transparent !important; background-color: transparent !important;">
+            <img src="${logo}" alt="giftmall" width="120" height="120" style="width: 120px; height: 120px; display: block;">
           </td>
-          <td valign="top" style="padding: 0;">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+          <td valign="top" style="padding: 0; background: transparent !important; background-color: transparent !important;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: transparent !important; background-color: transparent !important;">
               <tr>
-                <td>
-                  <h1 style="font-size: 24px; color: #210529; font-weight: 700; margin: 0 0 5px 0; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(greeting)}</h1>
-                  <div style="margin: 8px 0;">
-                    <a href="mailto:${email}" style="font-size: 12px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
-                    <span style="font-size: 13px; color: #210529; font-weight: 400; display: block; margin: 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
+                <td style="background: transparent !important; background-color: transparent !important;">
+                  <h1 style="font-size: 18px; color: #210529; font-weight: 700; margin: 0 0 4px 0; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(greeting)}</h1>
+                  <div style="margin: 6px 0;">
+                    <a href="mailto:${email}" style="font-size: 11px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
+                    <span style="font-size: 11px; color: #210529; font-weight: 400; display: block; margin: 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
                   </div>
-                  <div style="margin: 12px 0 4px 0; width: 100%;">
-                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                      <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
-                    </span>
-                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                      <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
-                    </span>
-                    <span style="display: inline-block; margin-right: 32px; vertical-align: middle;">
-                      <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
-                    </span>
-                    <span style="display: inline-block; margin-left: 16px; margin-right: 8px; vertical-align: middle;">
-                      <img src="ima.png" alt="G2 High Performer" width="40" height="40" style="width: 40px; height: 40px; display: block;">
-                    </span>
-                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                      <img src="getapp.png" alt="GetApp Best" width="40" height="40" style="width: 40px; height: 40px; display: block;">
-                    </span>
-                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
-                      <img src="software.png" alt="Software Advice Best Recommended 2023" width="40" height="40" style="width: 40px; height: 40px; display: block;">
-                    </span>
-                    <span style="display: inline-block; vertical-align: middle;">
-                      <img src="capterra.png" alt="Capterra Best Ease of Use 2023" width="40" height="40" style="width: 40px; height: 40px; display: block;">
-                    </span>
+                  <div style="margin: 10px 0 4px 0; width: 100%;">
+                    <div style="display: inline-block; vertical-align: middle;">
+                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                        <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                        <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; margin-right: 24px; vertical-align: middle;">
+                        <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; vertical-align: middle;">
+                        <div style="display: inline-block;  margin-right: 6px; vertical-align: middle;">
+                          <img src="ima.png" alt="G2 High Performer" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                          <img src="getapp.png" alt="GetApp Best" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                          <img src="software.png" alt="Software Advice Best Recommended 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                        <div style="display: inline-block; vertical-align: middle;">
+                          <img src="capterra.png" alt="Capterra Best Ease of Use 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <a href="${website}" style="font-size: 11px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 4px 0 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
+                  <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 3px 0 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
                 </td>
               </tr>
             </table>
@@ -700,18 +708,29 @@
         // Копирование визуального представления (для вставки в Word, Gmail и т.д.)
         async function copyVisual(variant) {
             const previewContainer = document.getElementById('preview-container');
-            const html = previewContainer.innerHTML.trim();
+            let html = previewContainer.innerHTML.trim();
+            
+            // Убираем все фоны из HTML
+            html = html.replace(/background[^:]*:\s*[^;'"]+;?/gi, '');
+            html = html.replace(/background-color[^:]*:\s*[^;'"]+;?/gi, '');
+            html = html.replace(/background-image[^:]*:\s*[^;'"]+;?/gi, '');
             
             try {
                 // Создаем временный элемент для копирования визуального представления
                 const tempDiv = document.createElement('div');
                 tempDiv.style.cssText = 'position: fixed; left: -9999px; top: 0; background: transparent !important; background-color: transparent !important; margin: 0; padding: 0; border: none;';
-                tempDiv.innerHTML = html;
+                
+                // Создаем внутренний контейнер без фона
+                const innerDiv = document.createElement('div');
+                innerDiv.style.cssText = 'background: transparent !important; background-color: transparent !important;';
+                innerDiv.innerHTML = html;
+                tempDiv.appendChild(innerDiv);
+                
                 document.body.appendChild(tempDiv);
                 
-                // Выделяем содержимое
+                // Выделяем содержимое внутреннего контейнера
                 const range = document.createRange();
-                range.selectNodeContents(tempDiv);
+                range.selectNodeContents(innerDiv);
                 const selection = window.getSelection();
                 selection.removeAllRanges();
                 selection.addRange(range);
@@ -739,8 +758,10 @@
             } catch (err) {
                 // Fallback: пробуем через Clipboard API
                 try {
+                    // Обертываем в div с прозрачным фоном
+                    const cleanHtml = `<div style="background: transparent !important; background-color: transparent !important;">${html}</div>`;
                     const clipboardItem = new ClipboardItem({
-                        'text/html': new Blob([html], { type: 'text/html' }),
+                        'text/html': new Blob([cleanHtml], { type: 'text/html' }),
                         'text/plain': new Blob([html], { type: 'text/plain' })
                     });
                     await navigator.clipboard.write([clipboardItem]);
