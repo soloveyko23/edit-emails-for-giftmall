@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор Email Підписів</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #210529;
+            color: white;
+            padding: 20px 30px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 30px;
+        }
+        
+        .section {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #210529;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #210529;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ccc;
+            margin-bottom: 8px;
+        }
+        .file-upload-btn {
+          color: #fff !important;
+          margin-bottom: 0 !important;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #210529;
+        }
+        
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .preview-section {
+            background: white;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .preview-section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #210529;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #210529;
+        }
+        
+        .preview-container {
+            overflow-x: auto;
+        }
+        
+        .copy-btn {
+            background: #210529;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .copy-btn:hover {
+            background: #3a0a4a;
+        }
+        
+        .copy-btn:active {
+            background: #1a0321;
+        }
+        
+        .copy-btn.success {
+            background: #4caf50;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .tab.active {
+            color: #210529;
+            border-bottom-color: #210529;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .html-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin-top: 15px;
+        }
+        
+        .badges-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .file-upload-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .file-upload-wrapper input[type="text"] {
+            flex: 1;
+        }
+        
+        .file-upload-btn {
+            background: #210529;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            white-space: nowrap;
+        }
+        
+        .file-upload-btn:hover {
+            background: #3a0a4a;
+        }
+        
+        .file-upload-btn input[type="file"] {
+            display: none;
+        }
+        
+        .preview-image {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .clear-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin-top: 10px;
+        }
+        
+        .clear-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Редактор Email Підписів</h1>
+        </div>
+        
+        <div class="content">
+            <!-- Левая колонка: Формы редактирования -->
+            <div>
+                <div class="tabs">
+                    <button class="tab" onclick="switchTab(1)">Варіант 1: Особиста</button>
+                    <button class="tab active" onclick="switchTab(2)">Варіант 2: Корпоративна</button>
+                </div>
+                
+                <!-- Форма для варианта 1 -->
+                <div id="form-variant1" class="tab-content">
+                    <div class="section">
+                        <h2>Редагування особистої підписі</h2>
+                        
+                        <div class="form-group">
+                            <label>Ім'я та Прізвище</label>
+                            <input type="text" id="v1-name" value="Name Surname" oninput="updatePreview(1)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Посада</label>
+                            <input type="text" id="v1-position" value="Position Position" oninput="updatePreview(1)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="v1-email" value="giftmall@gmail.com" oninput="updatePreview(1)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input type="text" id="v1-phone" value="+380 50 123 33 23" oninput="updatePreview(1)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Шлях до фото (person.png)</label>
+                            <div class="file-upload-wrapper">
+                                <input type="text" id="v1-photo" value="person.png" oninput="updatePreview(1)">
+                                <label class="file-upload-btn">
+                                    Завантажити
+                                    <input type="file" id="v1-photo-file" accept="image/*" onchange="handleFileUpload('v1-photo', this)">
+                                </label>
+                            </div>
+                            <div id="v1-photo-preview"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Посилання на соцмережі</label>
+                            <div class="social-links">
+                                <div>
+                                    <label style="font-size: 12px;">LinkedIn</label>
+                                    <input type="url" id="v1-linkedin" value="#" placeholder="https://linkedin.com/..." oninput="updatePreview(1)">
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px;">Facebook</label>
+                                    <input type="url" id="v1-facebook" value="#" placeholder="https://facebook.com/..." oninput="updatePreview(1)">
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px;">Instagram</label>
+                                    <input type="url" id="v1-instagram" value="#" placeholder="https://instagram.com/..." oninput="updatePreview(1)">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Посилання на сайт</label>
+                            <input type="url" id="v1-website" value="https://www.giftmall.com.ua" oninput="updatePreview(1)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Текст посилання на сайт</label>
+                            <input type="text" id="v1-website-text" value="www.giftmall.com.ua" oninput="updatePreview(1)">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Форма для варианта 2 -->
+                <div id="form-variant2" class="tab-content active">
+                    <div class="section">
+                        <h2>Редагування корпоративної підписі</h2>
+                        
+                        <div class="form-group">
+                            <label>Текст привітання</label>
+                            <input type="text" id="v2-greeting" value="Best Wishes!" oninput="updatePreview(2)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="v2-email" value="giftmall@gmail.com" oninput="updatePreview(2)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input type="text" id="v2-phone" value="+380 50 123 33 23" oninput="updatePreview(2)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Шлях до логотипу (giftmail.png)</label>
+                            <div class="file-upload-wrapper">
+                                <input type="text" id="v2-logo" value="giftmail.png" oninput="updatePreview(2)">
+                                <label class="file-upload-btn">
+                                    Завантажити
+                                    <input type="file" id="v2-logo-file" accept="image/*" onchange="handleFileUpload('v2-logo', this)">
+                                </label>
+                            </div>
+                            <div id="v2-logo-preview"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Посилання на соцмережі</label>
+                            <div class="social-links">
+                                <div>
+                                    <label style="font-size: 12px;">LinkedIn</label>
+                                    <input type="url" id="v2-linkedin" value="#" placeholder="https://linkedin.com/..." oninput="updatePreview(2)">
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px;">Facebook</label>
+                                    <input type="url" id="v2-facebook" value="#" placeholder="https://facebook.com/..." oninput="updatePreview(2)">
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px;">Instagram</label>
+                                    <input type="url" id="v2-instagram" value="#" placeholder="https://instagram.com/..." oninput="updatePreview(2)">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Посилання на сайт</label>
+                            <input type="url" id="v2-website" value="https://www.giftmall.com.ua" oninput="updatePreview(2)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Текст посилання на сайт</label>
+                            <input type="text" id="v2-website-text" value="www.giftmall.com.ua" oninput="updatePreview(2)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Правая колонка: Превью -->
+            <div>
+                <div class="preview-section">
+                    <h2>Прев'ю</h2>
+                    <div id="preview-container" class="preview-container" contenteditable="false" style="user-select: text;"></div>
+                    <button class="copy-btn" onclick="copyVisual(1)" id="copy-btn-1" style="display: none;">Копіювати вигляд (Варіант 1)</button>
+                    <button class="copy-btn" onclick="copyVisual(2)" id="copy-btn-2">Копіювати вигляд (Варіант 2)</button>
+                    <button class="copy-btn" onclick="copyHTMLCode(1)" id="copy-code-btn-1" style="display: none; background: #666; margin-left: 10px;">Копіювати HTML-код</button>
+                    <button class="copy-btn" onclick="copyHTMLCode(2)" id="copy-code-btn-2" style="background: #666; margin-left: 10px;">Копіювати HTML-код</button>
+                    <div id="html-output" class="html-output" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentVariant = 2;
+        
+        function switchTab(variant) {
+            currentVariant = variant;
+            
+            // Обновляем табы
+            document.querySelectorAll('.tab').forEach((tab, index) => {
+                if (index === variant - 1) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // Обновляем формы
+            document.querySelectorAll('.tab-content').forEach((content, index) => {
+                if (index === variant - 1) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+            
+            // Обновляем кнопки копирования
+            if (variant === 1) {
+                document.getElementById('copy-btn-1').style.display = 'block';
+                document.getElementById('copy-btn-2').style.display = 'none';
+                document.getElementById('copy-code-btn-1').style.display = 'block';
+                document.getElementById('copy-code-btn-2').style.display = 'none';
+            } else {
+                document.getElementById('copy-btn-1').style.display = 'none';
+                document.getElementById('copy-btn-2').style.display = 'block';
+                document.getElementById('copy-code-btn-1').style.display = 'none';
+                document.getElementById('copy-code-btn-2').style.display = 'block';
+            }
+            
+            updatePreview(variant);
+        }
+        
+        function updatePreview(variant) {
+            const container = document.getElementById('preview-container');
+            
+            if (variant === 1) {
+                const name = document.getElementById('v1-name').value || 'Name Surname';
+                const position = document.getElementById('v1-position').value || 'Position Position';
+                const email = document.getElementById('v1-email').value || 'giftmall@gmail.com';
+                const phone = document.getElementById('v1-phone').value || '+380 50 123 33 23';
+                const photo = document.getElementById('v1-photo').value || 'person.png';
+                const linkedin = document.getElementById('v1-linkedin').value || '#';
+                const facebook = document.getElementById('v1-facebook').value || '#';
+                const instagram = document.getElementById('v1-instagram').value || '#';
+                const website = document.getElementById('v1-website').value || 'https://www.giftmall.com.ua';
+                const websiteText = document.getElementById('v1-website-text').value || 'www.giftmall.com.ua';
+                
+                container.innerHTML = generateVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText);
+            } else {
+                const greeting = document.getElementById('v2-greeting').value || 'Best Wishes!';
+                const email = document.getElementById('v2-email').value || 'giftmall@gmail.com';
+                const phone = document.getElementById('v2-phone').value || '+380 50 123 33 23';
+                const logo = document.getElementById('v2-logo').value || 'giftmail.png';
+                const linkedin = document.getElementById('v2-linkedin').value || '#';
+                const facebook = document.getElementById('v2-facebook').value || '#';
+                const instagram = document.getElementById('v2-instagram').value || '#';
+                const website = document.getElementById('v2-website').value || 'https://www.giftmall.com.ua';
+                const websiteText = document.getElementById('v2-website-text').value || 'www.giftmall.com.ua';
+                
+                container.innerHTML = generateVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText);
+            }
+        }
+        
+        function generateVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText) {
+            return `
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse;">
+  <tr>
+    <td valign="top" align="left" style="padding: 0;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td valign="top" align="left" style="padding: 0 15px 15px 0; width: 218px;">
+            <img src="${photo}" alt="Profile" width="170" height="170" style="width: 170px; height: 170px; border-radius: 50%; display: block;">
+          </td>
+          <td valign="top" style="padding: 0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td>
+                  <h1 style="font-size: 24px; color: #210529; font-weight: 700; margin: 0 0 5px 0; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(name)}</h1>
+                  <p style="font-size: 16px; color: #210529; font-weight: 400; margin: 0 0 0 0; padding-bottom: 10px; border-bottom: 1px solid #EBEBEB; line-height: 1.3; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(position)}</p>
+                  <div style="margin: 8px 0;">
+                    <a href="mailto:${email}" style="font-size: 12px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
+                    <span style="font-size: 13px; color: #210529; font-weight: 400; display: block; margin: 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
+                  </div>
+                  <div style="margin: 12px 0 4px 0; width: 100%;">
+                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                      <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
+                    </span>
+                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                      <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
+                    </span>
+                    <span style="display: inline-block; margin-right: 32px; vertical-align: middle;">
+                      <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
+                    </span>
+                    <span style="display: inline-block; margin-left: 16px; margin-right: 8px; vertical-align: middle;">
+                      <img src="ima.png" alt="G2 High Performer" width="40" height="40" style="width: 40px; height: 40px; display: block;">
+                    </span>
+                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                      <img src="getapp.png" alt="GetApp Best" width="40" height="40" style="width: 40px; height: 40px; display: block;">
+                    </span>
+                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                      <img src="software.png" alt="Software Advice Best Recommended 2023" width="40" height="40" style="width: 40px; height: 40px; display: block;">
+                    </span>
+                    <span style="display: inline-block; vertical-align: middle;">
+                      <img src="capterra.png" alt="Capterra Best Ease of Use 2023" width="40" height="40" style="width: 40px; height: 40px; display: block;">
+                    </span>
+                  </div>
+                  <a href="${website}" style="font-size: 11px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 4px 0 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>`;
+        }
+        
+        function generateVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText) {
+            return `
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse;">
+  <tr>
+    <td valign="top" align="left" style="padding: 0;">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td valign="top" align="left" style="padding: 0 15px 15px 0; width: 218px;">
+            <img src="${logo}" alt="giftmall" width="170" height="170" style="width: 170px; height: 170px; border-radius: 50%; display: block;">
+          </td>
+          <td valign="top" style="padding: 0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td>
+                  <h1 style="font-size: 24px; color: #210529; font-weight: 700; margin: 0 0 5px 0; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(greeting)}</h1>
+                  <div style="margin: 8px 0;">
+                    <a href="mailto:${email}" style="font-size: 12px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
+                    <span style="font-size: 13px; color: #210529; font-weight: 400; display: block; margin: 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
+                  </div>
+                  <div style="margin: 12px 0 4px 0; width: 100%;">
+                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                      <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
+                    </span>
+                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                      <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
+                    </span>
+                    <span style="display: inline-block; margin-right: 32px; vertical-align: middle;">
+                      <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="26" height="26" style="width: 26px; height: 26px; border-radius: 50%; display: block;"></a>
+                    </span>
+                    <span style="display: inline-block; margin-left: 16px; margin-right: 8px; vertical-align: middle;">
+                      <img src="ima.png" alt="G2 High Performer" width="40" height="40" style="width: 40px; height: 40px; display: block;">
+                    </span>
+                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                      <img src="getapp.png" alt="GetApp Best" width="40" height="40" style="width: 40px; height: 40px; display: block;">
+                    </span>
+                    <span style="display: inline-block; margin-right: 8px; vertical-align: middle;">
+                      <img src="software.png" alt="Software Advice Best Recommended 2023" width="40" height="40" style="width: 40px; height: 40px; display: block;">
+                    </span>
+                    <span style="display: inline-block; vertical-align: middle;">
+                      <img src="capterra.png" alt="Capterra Best Ease of Use 2023" width="40" height="40" style="width: 40px; height: 40px; display: block;">
+                    </span>
+                  </div>
+                  <a href="${website}" style="font-size: 11px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 4px 0 5px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>`;
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function handleFileUpload(inputId, fileInput) {
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            // Проверяем, что это изображение
+            if (!file.type.startsWith('image/')) {
+                alert('Будь ласка, виберіть файл зображення');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64 = e.target.result;
+                const input = document.getElementById(inputId);
+                const previewId = inputId + '-preview';
+                const preview = document.getElementById(previewId);
+                
+                // Обновляем поле ввода с base64 данными
+                input.value = base64;
+                
+                // Показываем превью с кнопкой очистки
+                preview.innerHTML = `
+                    <img src="${base64}" alt="Preview" class="preview-image">
+                    <button type="button" class="clear-btn" onclick="clearImage('${inputId}')">Очистити</button>
+                `;
+                
+                // Обновляем превью подписи
+                if (inputId === 'v1-photo') {
+                    updatePreview(1);
+                } else if (inputId === 'v2-logo') {
+                    updatePreview(2);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function clearImage(inputId) {
+            const input = document.getElementById(inputId);
+            const previewId = inputId + '-preview';
+            const preview = document.getElementById(previewId);
+            const fileInput = document.getElementById(inputId + '-file');
+            
+            // Восстанавливаем значение по умолчанию
+            if (inputId === 'v1-photo') {
+                input.value = 'person.png';
+            } else if (inputId === 'v2-logo') {
+                input.value = 'giftmail.png';
+            }
+            
+            // Очищаем file input
+            if (fileInput) {
+                fileInput.value = '';
+            }
+            
+            // Очищаем превью
+            preview.innerHTML = '';
+            
+            // Обновляем превью подписи
+            if (inputId === 'v1-photo') {
+                updatePreview(1);
+            } else if (inputId === 'v2-logo') {
+                updatePreview(2);
+            }
+        }
+        
+        function getHTMLCode(variant) {
+            if (variant === 1) {
+                const name = document.getElementById('v1-name').value || 'Name Surname';
+                const position = document.getElementById('v1-position').value || 'Position Position';
+                const email = document.getElementById('v1-email').value || 'giftmall@gmail.com';
+                const phone = document.getElementById('v1-phone').value || '+380 50 123 33 23';
+                const photo = document.getElementById('v1-photo').value || 'person.png';
+                const linkedin = document.getElementById('v1-linkedin').value || '#';
+                const facebook = document.getElementById('v1-facebook').value || '#';
+                const instagram = document.getElementById('v1-instagram').value || '#';
+                const website = document.getElementById('v1-website').value || 'https://www.giftmall.com.ua';
+                const websiteText = document.getElementById('v1-website-text').value || 'www.giftmall.com.ua';
+                
+                return generateVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText);
+            } else {
+                const greeting = document.getElementById('v2-greeting').value || 'Best Wishes!';
+                const email = document.getElementById('v2-email').value || 'giftmall@gmail.com';
+                const phone = document.getElementById('v2-phone').value || '+380 50 123 33 23';
+                const logo = document.getElementById('v2-logo').value || 'giftmail.png';
+                const linkedin = document.getElementById('v2-linkedin').value || '#';
+                const facebook = document.getElementById('v2-facebook').value || '#';
+                const instagram = document.getElementById('v2-instagram').value || '#';
+                const website = document.getElementById('v2-website').value || 'https://www.giftmall.com.ua';
+                const websiteText = document.getElementById('v2-website-text').value || 'www.giftmall.com.ua';
+                
+                return generateVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText);
+            }
+        }
+        
+        // Копирование визуального представления (для вставки в Word, Gmail и т.д.)
+        async function copyVisual(variant) {
+            const previewContainer = document.getElementById('preview-container');
+            const html = previewContainer.innerHTML.trim();
+            
+            try {
+                // Создаем временный элемент для копирования визуального представления
+                const tempDiv = document.createElement('div');
+                tempDiv.style.cssText = 'position: fixed; left: -9999px; top: 0; background: transparent !important; background-color: transparent !important; margin: 0; padding: 0; border: none;';
+                tempDiv.innerHTML = html;
+                document.body.appendChild(tempDiv);
+                
+                // Выделяем содержимое
+                const range = document.createRange();
+                range.selectNodeContents(tempDiv);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                
+                // Копируем с форматированием
+                const success = document.execCommand('copy');
+                
+                // Удаляем временный элемент
+                document.body.removeChild(tempDiv);
+                selection.removeAllRanges();
+                
+                if (success) {
+                    const btn = document.getElementById(`copy-btn-${variant}`);
+                    const originalText = btn.textContent;
+                    btn.textContent = '✓ Скопійовано!';
+                    btn.classList.add('success');
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.classList.remove('success');
+                    }, 2000);
+                } else {
+                    throw new Error('execCommand failed');
+                }
+            } catch (err) {
+                // Fallback: пробуем через Clipboard API
+                try {
+                    const clipboardItem = new ClipboardItem({
+                        'text/html': new Blob([html], { type: 'text/html' }),
+                        'text/plain': new Blob([html], { type: 'text/plain' })
+                    });
+                    await navigator.clipboard.write([clipboardItem]);
+                    
+                    const btn = document.getElementById(`copy-btn-${variant}`);
+                    const originalText = btn.textContent;
+                    btn.textContent = '✓ Скопійовано!';
+                    btn.classList.add('success');
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.classList.remove('success');
+                    }, 2000);
+                } catch (err2) {
+                    alert('Не вдалося скопіювати. Спробуйте виділити текст в прев\'ю вручну та скопіювати (Ctrl+C).');
+                }
+            }
+        }
+        
+        // Копирование HTML-кода (для вставки в настройки email-клиента)
+        async function copyHTMLCode(variant) {
+            const previewContainer = document.getElementById('preview-container');
+            const html = previewContainer.innerHTML.trim();
+            const output = document.getElementById('html-output');
+            output.textContent = html;
+            output.style.display = 'block';
+            
+            try {
+                await navigator.clipboard.writeText(html);
+                const btn = document.getElementById(`copy-code-btn-${variant}`);
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Код скопійовано!';
+                btn.classList.add('success');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('success');
+                }, 2000);
+            } catch (err) {
+                alert('Не вдалося скопіювати. Використайте Ctrl+C для копіювання з поля нижче.');
+            }
+        }
+        
+        // Ініціалізація прев'ю при завантаженні
+        window.addEventListener('DOMContentLoaded', () => {
+            updatePreview(2);
+        });
+    </script>
+</body>
+</html>
+
