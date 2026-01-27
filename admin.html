@@ -496,7 +496,7 @@
       <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important;">
         <tr>
           <td valign="top" align="left" style="padding: 0 12px 12px 0; background: transparent !important; background-color: transparent !important;">
-            <img src="${photo}" alt="Profile" width="120" height="120" style="width: 120px; height: 120px; border-radius: 50%; display: block; border: 3px solid #210529; box-sizing: border-box;">
+            <img src="${photo}" alt="Profile" width="120" height="120" style="width: 120px; height: 120px; border-radius: 50%; display: block; border: 3px solid #6C0089; box-sizing: border-box;">
           </td>
           <td valign="top" style="padding: 0; background: transparent !important; background-color: transparent !important;">
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: transparent !important; background-color: transparent !important;">
@@ -710,10 +710,18 @@
             const previewContainer = document.getElementById('preview-container');
             let html = previewContainer.innerHTML.trim();
             
-            // Убираем все фоны из HTML
-            html = html.replace(/background[^:]*:\s*[^;'"]+;?/gi, '');
-            html = html.replace(/background-color[^:]*:\s*[^;'"]+;?/gi, '');
-            html = html.replace(/background-image[^:]*:\s*[^;'"]+;?/gi, '');
+            // Агрессивно убираем все фоны из HTML и добавляем прозрачный фон
+            html = html.replace(/style="([^"]*)"/gi, (match, styles) => {
+                // Удаляем все background свойства
+                let cleanStyles = styles.replace(/background[^:;'"]*:\s*[^;'"]+;?/gi, '');
+                cleanStyles = cleanStyles.replace(/background-color[^:;'"]*:\s*[^;'"]+;?/gi, '');
+                cleanStyles = cleanStyles.replace(/background-image[^:;'"]*:\s*[^;'"]+;?/gi, '');
+                // Добавляем прозрачный фон в начало
+                cleanStyles = 'background: transparent !important; background-color: transparent !important; ' + cleanStyles.trim();
+                return `style="${cleanStyles}"`;
+            });
+            // Для элементов без style добавляем прозрачный фон
+            html = html.replace(/<(table|tr|td|div|span|a|h1|h2|h3|p)(\s+[^>]*?)(?!.*style=)(>)/gi, '<$1$2 style="background: transparent !important; background-color: transparent !important;"$3');
             
             try {
                 // Создаем временный элемент для копирования визуального представления
@@ -758,7 +766,7 @@
             } catch (err) {
                 // Fallback: пробуем через Clipboard API
                 try {
-                    // Обертываем в div с прозрачным фоном
+                    // Обертываем в div с прозрачным фоном и очищаем все фоны внутри
                     const cleanHtml = `<div style="background: transparent !important; background-color: transparent !important;">${html}</div>`;
                     const clipboardItem = new ClipboardItem({
                         'text/html': new Blob([cleanHtml], { type: 'text/html' }),
