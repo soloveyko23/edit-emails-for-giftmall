@@ -781,24 +781,34 @@
                 const position = document.getElementById('v1-position').value || 'Position Position';
                 const email = document.getElementById('v1-email').value || 'giftmall@gmail.com';
                 const phone = document.getElementById('v1-phone').value || '+380 50 123 33 23';
-                const photo = document.getElementById('v1-photo').value || 'person.png';
+                let photo = document.getElementById('v1-photo').value || 'person.png';
                 const linkedin = document.getElementById('v1-linkedin').value || '#';
                 const facebook = document.getElementById('v1-facebook').value || '#';
                 const instagram = document.getElementById('v1-instagram').value || '#';
                 const website = document.getElementById('v1-website').value || 'https://www.giftmall.com.ua';
                 const websiteText = document.getElementById('v1-website-text').value || 'www.giftmall.com.ua';
                 
+                // Gmail має ліміт на довжину підпису, тому не підставляємо великі base64-картинки
+                if (photo && photo.startsWith('data:image')) {
+                    photo = 'person.png';
+                }
+                
                 return generateGmailVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText);
             } else {
                 const greeting = document.getElementById('v2-greeting').value || 'Best Wishes!';
                 const email = document.getElementById('v2-email').value || 'giftmall@gmail.com';
                 const phone = document.getElementById('v2-phone').value || '+380 50 123 33 23';
-                const logo = document.getElementById('v2-logo').value || 'giftmail.png';
+                let logo = document.getElementById('v2-logo').value || 'giftmail.png';
                 const linkedin = document.getElementById('v2-linkedin').value || '#';
                 const facebook = document.getElementById('v2-facebook').value || '#';
                 const instagram = document.getElementById('v2-instagram').value || '#';
                 const website = document.getElementById('v2-website').value || 'https://www.giftmall.com.ua';
                 const websiteText = document.getElementById('v2-website-text').value || 'www.giftmall.com.ua';
+                
+                // Для Gmail замінюємо великі base64-логотипи на короткий шлях
+                if (logo && logo.startsWith('data:image')) {
+                    logo = 'giftmail.png';
+                }
                 
                 return generateGmailVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText);
             }
