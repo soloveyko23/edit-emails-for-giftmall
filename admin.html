@@ -411,6 +411,8 @@
                     <button class="copy-btn" onclick="copyVisual(2)" id="copy-btn-2">Копіювати вигляд (Варіант 2)</button>
                     <button class="copy-btn" onclick="copyHTMLCode(1)" id="copy-code-btn-1" style="display: none; background: #666; margin-left: 10px;">Копіювати HTML-код</button>
                     <button class="copy-btn" onclick="copyHTMLCode(2)" id="copy-code-btn-2" style="background: #666; margin-left: 10px;">Копіювати HTML-код</button>
+                    <button class="copy-btn" onclick="copyGmailHTML(1)" id="copy-gmail-btn-1" style="display: none; background: #444; margin-left: 10px;">Короткий HTML для Gmail</button>
+                    <button class="copy-btn" onclick="copyGmailHTML(2)" id="copy-gmail-btn-2" style="background: #444; margin-left: 10px;">Короткий HTML для Gmail</button>
                     <div id="html-output" class="html-output" style="display: none;"></div>
                 </div>
             </div>
@@ -447,11 +449,15 @@
                 document.getElementById('copy-btn-2').style.display = 'none';
                 document.getElementById('copy-code-btn-1').style.display = 'block';
                 document.getElementById('copy-code-btn-2').style.display = 'none';
+                document.getElementById('copy-gmail-btn-1').style.display = 'block';
+                document.getElementById('copy-gmail-btn-2').style.display = 'none';
             } else {
                 document.getElementById('copy-btn-1').style.display = 'none';
                 document.getElementById('copy-btn-2').style.display = 'block';
                 document.getElementById('copy-code-btn-1').style.display = 'none';
                 document.getElementById('copy-code-btn-2').style.display = 'block';
+                document.getElementById('copy-gmail-btn-1').style.display = 'none';
+                document.getElementById('copy-gmail-btn-2').style.display = 'block';
             }
             
             updatePreview(variant);
@@ -547,6 +553,38 @@
 </table>`;
         }
         
+        // Спрощена версія для Gmail (без нагород, мінімум стилів)
+        function generateGmailVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText) {
+            return `
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 12px; color: #210529;">
+  <tr>
+    <td valign="top" style="padding: 0 10px 10px 0;">
+      <img src="${photo}" alt="Profile" width="96" height="96" style="display: block; border-radius: 50%; border: 3px solid #6C0089;">
+    </td>
+    <td valign="top">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+            <div style="font-size: 16px; font-weight: 700; margin: 0 0 4px 0;">${escapeHtml(name)}</div>
+            <div style="font-size: 13px; margin: 0 0 6px 0; padding-bottom: 6px; border-bottom: 1px solid #EBEBEB;">${escapeHtml(position)}</div>
+            <div style="margin: 4px 0;">
+              <a href="mailto:${email}" style="font-size: 11px; font-weight: 600; color: #210529; text-decoration: none; display: block; margin: 2px 0;">${escapeHtml(email)}</a>
+              <span style="font-size: 11px; display: block; margin: 2px 0;">${escapeHtml(phone)}</span>
+            </div>
+            <div style="margin: 6px 0;">
+              <a href="${linkedin}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${facebook}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${instagram}" style="display: inline-block; margin-right: 8px; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+            </div>
+            <a href="${website}" style="font-size: 10px; color: #210529; text-decoration: none; display: block; margin: 2px 0;">${escapeHtml(websiteText)}</a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>`;
+        }
+        
         function generateVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText) {
             return `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse; background: transparent !important; background-color: transparent !important;">
@@ -597,6 +635,37 @@
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>`;
+        }
+
+        // Спрощена версія для Gmail (без нагород, мінімум стилів)
+        function generateGmailVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText) {
+            return `
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 12px; color: #210529;">
+  <tr>
+    <td valign="top" style="padding: 0 10px 10px 0;">
+      <img src="${logo}" alt="giftmall" width="96" height="96" style="display: block;">
+    </td>
+    <td valign="top">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+            <div style="font-size: 16px; font-weight: 700; margin: 0 0 6px 0;">${escapeHtml(greeting)}</div>
+            <div style="margin: 4px 0;">
+              <a href="mailto:${email}" style="font-size: 11px; font-weight: 600; color: #210529; text-decoration: none; display: block; margin: 2px 0;">${escapeHtml(email)}</a>
+              <span style="font-size: 11px; display: block; margin: 2px 0;">${escapeHtml(phone)}</span>
+            </div>
+            <div style="margin: 6px 0;">
+              <a href="${linkedin}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${facebook}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${instagram}" style="display: inline-block; margin-right: 8px; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+            </div>
+            <a href="${website}" style="font-size: 10px; color: #210529; text-decoration: none; display: block; margin: 2px 0;">${escapeHtml(websiteText)}</a>
           </td>
         </tr>
       </table>
@@ -704,6 +773,36 @@
                 return generateVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText);
             }
         }
+
+        // Спрощений HTML саме для налаштувань Gmail
+        function getGmailHTMLCode(variant) {
+            if (variant === 1) {
+                const name = document.getElementById('v1-name').value || 'Name Surname';
+                const position = document.getElementById('v1-position').value || 'Position Position';
+                const email = document.getElementById('v1-email').value || 'giftmall@gmail.com';
+                const phone = document.getElementById('v1-phone').value || '+380 50 123 33 23';
+                const photo = document.getElementById('v1-photo').value || 'person.png';
+                const linkedin = document.getElementById('v1-linkedin').value || '#';
+                const facebook = document.getElementById('v1-facebook').value || '#';
+                const instagram = document.getElementById('v1-instagram').value || '#';
+                const website = document.getElementById('v1-website').value || 'https://www.giftmall.com.ua';
+                const websiteText = document.getElementById('v1-website-text').value || 'www.giftmall.com.ua';
+                
+                return generateGmailVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText);
+            } else {
+                const greeting = document.getElementById('v2-greeting').value || 'Best Wishes!';
+                const email = document.getElementById('v2-email').value || 'giftmall@gmail.com';
+                const phone = document.getElementById('v2-phone').value || '+380 50 123 33 23';
+                const logo = document.getElementById('v2-logo').value || 'giftmail.png';
+                const linkedin = document.getElementById('v2-linkedin').value || '#';
+                const facebook = document.getElementById('v2-facebook').value || '#';
+                const instagram = document.getElementById('v2-instagram').value || '#';
+                const website = document.getElementById('v2-website').value || 'https://www.giftmall.com.ua';
+                const websiteText = document.getElementById('v2-website-text').value || 'www.giftmall.com.ua';
+                
+                return generateGmailVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText);
+            }
+        }
         
         // Копирование визуального представления (для вставки в Word, Gmail и т.д.)
         async function copyVisual(variant) {
@@ -802,6 +901,29 @@
                 const btn = document.getElementById(`copy-code-btn-${variant}`);
                 const originalText = btn.textContent;
                 btn.textContent = '✓ Код скопійовано!';
+                btn.classList.add('success');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('success');
+                }, 2000);
+            } catch (err) {
+                alert('Не вдалося скопіювати. Використайте Ctrl+C для копіювання з поля нижче.');
+            }
+        }
+
+        // Копирование спрощеного HTML спеціально для Gmail
+        async function copyGmailHTML(variant) {
+            const html = getGmailHTMLCode(variant).trim();
+            const output = document.getElementById('html-output');
+            output.textContent = html;
+            output.style.display = 'block';
+            
+            try {
+                await navigator.clipboard.writeText(html);
+                const btn = document.getElementById(`copy-gmail-btn-${variant}`);
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Gmail HTML скопійовано!';
                 btn.classList.add('success');
                 
                 setTimeout(() => {
