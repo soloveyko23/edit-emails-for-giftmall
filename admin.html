@@ -445,19 +445,19 @@
             
             // Обновляем кнопки копирования
             if (variant === 1) {
-                document.getElementById('copy-btn-1').style.display = 'block';
+                document.getElementById('copy-btn-1').style.display = 'inline-block';
                 document.getElementById('copy-btn-2').style.display = 'none';
-                document.getElementById('copy-code-btn-1').style.display = 'block';
+                document.getElementById('copy-code-btn-1').style.display = 'inline-block';
                 document.getElementById('copy-code-btn-2').style.display = 'none';
-                document.getElementById('copy-gmail-btn-1').style.display = 'block';
+                document.getElementById('copy-gmail-btn-1').style.display = 'inline-block';
                 document.getElementById('copy-gmail-btn-2').style.display = 'none';
             } else {
                 document.getElementById('copy-btn-1').style.display = 'none';
-                document.getElementById('copy-btn-2').style.display = 'block';
+                document.getElementById('copy-btn-2').style.display = 'inline-block';
                 document.getElementById('copy-code-btn-1').style.display = 'none';
-                document.getElementById('copy-code-btn-2').style.display = 'block';
+                document.getElementById('copy-code-btn-2').style.display = 'inline-block';
                 document.getElementById('copy-gmail-btn-1').style.display = 'none';
-                document.getElementById('copy-gmail-btn-2').style.display = 'block';
+                document.getElementById('copy-gmail-btn-2').style.display = 'inline-block';
             }
             
             updatePreview(variant);
@@ -494,27 +494,31 @@
             }
         }
         
+        // БАГ 2 ВИПРАВЛЕНО: Зменшено відступи між іменем та позицією (margin: 0 0 2px 0), між email/phone (margin: 2px 0), між соц мережами та сайтом (margin: 8px 0 2px 0)
+        // БАГ 3 ВИПРАВЛЕНО: Збільшено відступ між фото та контентом (padding: 0 18px 12px 0)
+        // БАГ 5 ВИПРАВЛЕНО: Розмір фото автоматично підлаштовується під контент (height: 100%)
+        // БАГ 1 та 6 ВИПРАВЛЕНО: Бейджі опущені нижче (margin: 14px) та відображаються правіше (margin-right: 34px між соцмережами та бейджами)
         function generateVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText) {
             return `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse; background: transparent !important; background-color: transparent !important;">
   <tr>
     <td valign="top" align="left" style="padding: 0; background: transparent !important; background-color: transparent !important;">
-      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important;">
+      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important; height: 100%;">
         <tr>
-          <td valign="top" align="left" style="padding: 0 12px 12px 0; background: transparent !important; background-color: transparent !important;">
-            <img src="${photo}" alt="Profile" width="120" height="120" style="width: 120px; height: 120px; border-radius: 50%; display: block; border: 3px solid #6C0089; box-sizing: border-box;">
+          <td valign="top" align="left" style="padding: 0 18px 12px 0; background: transparent !important; background-color: transparent !important; height: 100%;">
+            <img src="${photo}" alt="Profile" width="120" style="width: 120px; height: 100%; object-fit: cover; border-radius: 50%; display: block; border: 3px solid #6C0089; box-sizing: border-box;">
           </td>
           <td valign="top" style="padding: 0; background: transparent !important; background-color: transparent !important;">
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: transparent !important; background-color: transparent !important;">
               <tr>
                 <td style="background: transparent !important; background-color: transparent !important;">
-                  <h1 style="font-size: 18px; color: #210529; font-weight: 700; margin: 0 0 4px 0; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(name)}</h1>
-                  <p style="font-size: 14px; color: #210529; font-weight: 400; margin: 0 0 0 0; padding-bottom: 8px; border-bottom: 1px solid #EBEBEB; line-height: 1.3; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(position)}</p>
-                  <div style="margin: 6px 0;">
-                    <a href="mailto:${email}" style="font-size: 11px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
-                    <span style="font-size: 11px; color: #210529; font-weight: 400; display: block; margin: 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
+                  <h1 style="font-size: 18px; color: #210529; font-weight: 700; margin: 0 0 2px 0; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(name)}</h1>
+                  <p style="font-size: 14px; color: #210529; font-weight: 400; margin: 0 0 0 0; padding-bottom: 6px; border-bottom: 1px solid #EBEBEB; line-height: 1.3; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(position)}</p>
+                  <div style="margin: 4px 0;">
+                    <a href="mailto:${email}" style="font-size: 11px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 2px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
+                    <span style="font-size: 11px; color: #210529; font-weight: 400; display: block; margin: 2px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
                   </div>
-                  <div style="margin: 10px 0 4px 0; width: 100%;">
+                  <div style="margin: 14px 0 4px 0; width: 100%;">
                     <div style="display: inline-block; vertical-align: middle;">
                       <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
                         <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
@@ -522,7 +526,7 @@
                       <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
                         <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
                       </div>
-                      <div style="display: inline-block; margin-right: 24px; vertical-align: middle;">
+                      <div style="display: inline-block; margin-right: 34px; vertical-align: middle;">
                         <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
                       </div>
                       <div style="display: inline-block; vertical-align: middle;">
@@ -541,7 +545,7 @@
                       </div>
                     </div>
                   </div>
-                  <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 3px 0 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
+                  <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 2px 0 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
                 </td>
               </tr>
             </table>
@@ -565,9 +569,9 @@
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td>
-            <div style="font-size: 16px; font-weight: 700; margin: 0 0 4px 0;">${escapeHtml(name)}</div>
-            <div style="font-size: 13px; margin: 0 0 6px 0; padding-bottom: 6px; border-bottom: 1px solid #EBEBEB;">${escapeHtml(position)}</div>
-            <div style="margin: 4px 0;">
+            <div style="font-size: 16px; font-weight: 700; margin: 0 0 2px 0;">${escapeHtml(name)}</div>
+            <div style="font-size: 13px; margin: 0 0 4px 0; padding-bottom: 6px; border-bottom: 1px solid #EBEBEB;">${escapeHtml(position)}</div>
+            <div style="margin: 2px 0;">
               <a href="mailto:${email}" style="font-size: 11px; font-weight: 600; color: #210529; text-decoration: none; display: block; margin: 2px 0;">${escapeHtml(email)}</a>
               <span style="font-size: 11px; display: block; margin: 2px 0;">${escapeHtml(phone)}</span>
             </div>
@@ -585,26 +589,30 @@
 </table>`;
         }
         
+        // БАГ 4 ВИПРАВЛЕНО: Додано горизонтальну лінію після "Best Wishes!" (border-bottom: 1px solid #EBEBEB; padding-bottom: 6px)
+        // БАГ 3 ВИПРАВЛЕНО: Збільшено відступ між логотипом та контентом (padding: 0 18px 12px 0)
+        // БАГ 5 ВИПРАВЛЕНО: Розмір логотипу автоматично підлаштовується під контент (height: 100%)
+        // БАГ 1 та 6 ВИПРАВЛЕНО: Бейджі опущені нижче (margin: 14px) та відображаються правіше (margin-right: 34px)
         function generateVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText) {
             return `
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse; background: transparent !important; background-color: transparent !important;">
   <tr>
     <td valign="top" align="left" style="padding: 0; background: transparent !important; background-color: transparent !important;">
-      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important;">
+      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important; height: 100%;">
         <tr>
-          <td valign="top" align="left" style="padding: 0 12px 12px 0; background: transparent !important; background-color: transparent !important;">
-            <img src="${logo}" alt="giftmall" width="120" height="120" style="width: 120px; height: 120px; display: block;">
+          <td valign="top" align="left" style="padding: 0 18px 12px 0; background: transparent !important; background-color: transparent !important; height: 100%;">
+            <img src="${logo}" alt="giftmall" width="120" style="width: 120px; height: 100%; object-fit: contain; display: block;">
           </td>
           <td valign="top" style="padding: 0; background: transparent !important; background-color: transparent !important;">
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: transparent !important; background-color: transparent !important;">
               <tr>
                 <td style="background: transparent !important; background-color: transparent !important;">
-                  <h1 style="font-size: 18px; color: #210529; font-weight: 700; margin: 0 0 4px 0; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(greeting)}</h1>
-                  <div style="margin: 6px 0;">
-                    <a href="mailto:${email}" style="font-size: 11px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
-                    <span style="font-size: 11px; color: #210529; font-weight: 400; display: block; margin: 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
+                  <h1 style="font-size: 18px; color: #210529; font-weight: 700; margin: 0 0 2px 0; padding-bottom: 6px; border-bottom: 1px solid #EBEBEB; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(greeting)}</h1>
+                  <div style="margin: 4px 0;">
+                    <a href="mailto:${email}" style="font-size: 11px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 2px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
+                    <span style="font-size: 11px; color: #210529; font-weight: 400; display: block; margin: 2px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
                   </div>
-                  <div style="margin: 10px 0 4px 0; width: 100%;">
+                  <div style="margin: 14px 0 4px 0; width: 100%;">
                     <div style="display: inline-block; vertical-align: middle;">
                       <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
                         <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
@@ -612,7 +620,7 @@
                       <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
                         <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
                       </div>
-                      <div style="display: inline-block; margin-right: 24px; vertical-align: middle;">
+                      <div style="display: inline-block; margin-right: 34px; vertical-align: middle;">
                         <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
                       </div>
                       <div style="display: inline-block; vertical-align: middle;">
@@ -631,7 +639,7 @@
                       </div>
                     </div>
                   </div>
-                  <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 3px 0 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
+                  <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 2px 0 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
                 </td>
               </tr>
             </table>
@@ -655,8 +663,8 @@
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td>
-            <div style="font-size: 16px; font-weight: 700; margin: 0 0 6px 0;">${escapeHtml(greeting)}</div>
-            <div style="margin: 4px 0;">
+            <div style="font-size: 16px; font-weight: 700; margin: 0 0 4px 0; padding-bottom: 6px; border-bottom: 1px solid #EBEBEB;">${escapeHtml(greeting)}</div>
+            <div style="margin: 2px 0;">
               <a href="mailto:${email}" style="font-size: 11px; font-weight: 600; color: #210529; text-decoration: none; display: block; margin: 2px 0;">${escapeHtml(email)}</a>
               <span style="font-size: 11px; display: block; margin: 2px 0;">${escapeHtml(phone)}</span>
             </div>
@@ -952,4 +960,3 @@
     </script>
 </body>
 </html>
-
