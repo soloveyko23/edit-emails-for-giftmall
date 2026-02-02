@@ -192,13 +192,6 @@
             margin-top: 15px;
         }
         
-        .badges-info {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-            font-style: italic;
-        }
-        
         .file-upload-wrapper {
             display: flex;
             gap: 10px;
@@ -265,14 +258,12 @@
         </div>
         
         <div class="content">
-            <!-- Левая колонка: Формы редактирования -->
             <div>
                 <div class="tabs">
                     <button class="tab" onclick="switchTab(1)">Варіант 1: Особиста</button>
                     <button class="tab active" onclick="switchTab(2)">Варіант 2: Корпоративна</button>
                 </div>
                 
-                <!-- Форма для варианта 1 -->
                 <div id="form-variant1" class="tab-content">
                     <div class="section">
                         <h2>Редагування особистої підписі</h2>
@@ -300,7 +291,7 @@
                         <div class="form-group">
                             <label>Шлях до фото (person.png)</label>
                             <div class="file-upload-wrapper">
-                                <input type="text" id="v1-photo" value="person.png" oninput="updatePreview(1)">
+                                <input type="text" id="v1-photo" value="https://soloveyko23.github.io/edit-emails-for-giftmall/person.png" oninput="updatePreview(1)">
                                 <label class="file-upload-btn">
                                     Завантажити
                                     <input type="file" id="v1-photo-file" accept="image/*" onchange="handleFileUpload('v1-photo', this)">
@@ -339,7 +330,6 @@
                     </div>
                 </div>
                 
-                <!-- Форма для варианта 2 -->
                 <div id="form-variant2" class="tab-content active">
                     <div class="section">
                         <h2>Редагування корпоративної підписі</h2>
@@ -362,7 +352,7 @@
                         <div class="form-group">
                             <label>Шлях до логотипу (giftmail.png)</label>
                             <div class="file-upload-wrapper">
-                                <input type="text" id="v2-logo" value="giftmail.png" oninput="updatePreview(2)">
+                                <input type="text" id="v2-logo" value="https://soloveyko23.github.io/edit-emails-for-giftmall/giftmail.png" oninput="updatePreview(2)">
                                 <label class="file-upload-btn">
                                     Завантажити
                                     <input type="file" id="v2-logo-file" accept="image/*" onchange="handleFileUpload('v2-logo', this)">
@@ -402,7 +392,6 @@
                 </div>
             </div>
             
-            <!-- Правая колонка: Превью -->
             <div>
                 <div class="preview-section">
                     <h2>Прев'ю</h2>
@@ -425,7 +414,6 @@
         function switchTab(variant) {
             currentVariant = variant;
             
-            // Обновляем табы
             document.querySelectorAll('.tab').forEach((tab, index) => {
                 if (index === variant - 1) {
                     tab.classList.add('active');
@@ -434,7 +422,6 @@
                 }
             });
             
-            // Обновляем формы
             document.querySelectorAll('.tab-content').forEach((content, index) => {
                 if (index === variant - 1) {
                     content.classList.add('active');
@@ -443,7 +430,6 @@
                 }
             });
             
-            // Обновляем кнопки копирования
             if (variant === 1) {
                 document.getElementById('copy-btn-1').style.display = 'inline-block';
                 document.getElementById('copy-btn-2').style.display = 'none';
@@ -471,7 +457,7 @@
                 const position = document.getElementById('v1-position').value || 'Position Position';
                 const email = document.getElementById('v1-email').value || 'giftmall@gmail.com';
                 const phone = document.getElementById('v1-phone').value || '+380 50 123 33 23';
-                const photo = document.getElementById('v1-photo').value || 'person.png';
+                const photo = document.getElementById('v1-photo').value || 'https://soloveyko23.github.io/edit-emails-for-giftmall/person.png';
                 const linkedin = document.getElementById('v1-linkedin').value || '#';
                 const facebook = document.getElementById('v1-facebook').value || '#';
                 const instagram = document.getElementById('v1-instagram').value || '#';
@@ -483,7 +469,7 @@
                 const greeting = document.getElementById('v2-greeting').value || 'Best Wishes!';
                 const email = document.getElementById('v2-email').value || 'giftmall@gmail.com';
                 const phone = document.getElementById('v2-phone').value || '+380 50 123 33 23';
-                const logo = document.getElementById('v2-logo').value || 'giftmail.png';
+                const logo = document.getElementById('v2-logo').value || 'https://soloveyko23.github.io/edit-emails-for-giftmall/giftmail.png';
                 const linkedin = document.getElementById('v2-linkedin').value || '#';
                 const facebook = document.getElementById('v2-facebook').value || '#';
                 const instagram = document.getElementById('v2-instagram').value || '#';
@@ -494,19 +480,15 @@
             }
         }
         
-        // БАГ 2 ВИПРАВЛЕНО: Зменшено відступи між іменем та позицією (margin: 0 0 2px 0), між email/phone (margin: 2px 0), між соц мережами та сайтом (margin: 8px 0 2px 0)
-        // БАГ 3 ВИПРАВЛЕНО: Збільшено відступ між фото та контентом (padding: 0 18px 12px 0)
-        // БАГ 5 ВИПРАВЛЕНО: Розмір фото автоматично підлаштовується під контент (height: 100%)
-        // БАГ 1 та 6 ВИПРАВЛЕНО: Бейджі опущені нижче (margin: 14px) та відображаються правіше (margin-right: 34px між соцмережами та бейджами)
         function generateVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText) {
-            return `
+            return 
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse; background: transparent !important; background-color: transparent !important;">
   <tr>
     <td valign="top" align="left" style="padding: 0; background: transparent !important; background-color: transparent !important;">
-      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important; height: 100%;">
+      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important;">
         <tr>
-          <td valign="top" align="left" style="padding: 0 18px 12px 0; background: transparent !important; background-color: transparent !important; height: 100%;">
-            <img src="${photo}" alt="Profile" width="120" style="width: 120px; height: 100%; object-fit: cover; border-radius: 50%; display: block; border: 3px solid #6C0089; box-sizing: border-box;">
+          <td valign="top" align="left" style="padding: 0 18px 12px 0; background: transparent !important; background-color: transparent !important;">
+            <img src="${photo}" alt="Profile" width="135" height="135" style="width: 135px; height: 135px; border-radius: 50%; display: block; border: 3px solid #6C0089; box-sizing: border-box;">
           </td>
           <td valign="top" style="padding: 0; background: transparent !important; background-color: transparent !important;">
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: transparent !important; background-color: transparent !important;">
@@ -521,31 +503,33 @@
                   <div style="margin: 14px 0 4px 0; width: 100%;">
                     <div style="display: inline-block; vertical-align: middle;">
                       <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
-                        <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                        <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/linkedin.png" alt="LinkedIn" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
                       </div>
                       <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
-                        <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                        <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/facebook.png" alt="Facebook" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                        <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/instagram.png" alt="Instagram" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
                       </div>
                       <div style="display: inline-block; margin-right: 34px; vertical-align: middle;">
-                        <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                        <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
                       </div>
                       <div style="display: inline-block; vertical-align: middle;">
-                        <div style="display: inline-block;  margin-right: 6px; vertical-align: middle;">
-                          <img src="ima.png" alt="G2 High Performer" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                          <img src="https://soloveyko23.github.io/edit-emails-for-giftmall/ima.png" alt="G2 High Performer" width="32" height="32" style="width: 32px; height: 32px; display: block;">
                         </div>
                         <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
-                          <img src="getapp.png" alt="GetApp Best" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                          <img src="https://soloveyko23.github.io/edit-emails-for-giftmall/getapp.png" alt="GetApp Best" width="32" height="32" style="width: 32px; height: 32px; display: block;">
                         </div>
                         <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
-                          <img src="software.png" alt="Software Advice Best Recommended 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                          <img src="https://soloveyko23.github.io/edit-emails-for-giftmall/software.png" alt="Software Advice Best Recommended 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
                         </div>
                         <div style="display: inline-block; vertical-align: middle;">
-                          <img src="capterra.png" alt="Capterra Best Ease of Use 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                          <img src="https://soloveyko23.github.io/edit-emails-for-giftmall/capterra.png" alt="Capterra Best Ease of Use 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
                         </div>
                       </div>
                     </div>
                   </div>
-                  <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 2px 0 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
                 </td>
               </tr>
             </table>
@@ -554,12 +538,71 @@
       </table>
     </td>
   </tr>
-</table>`;
+</table>;
         }
         
-        // Спрощена версія для Gmail (без нагород, мінімум стилів)
+        function generateVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText) {
+            return 
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse; background: transparent !important; background-color: transparent !important;">
+  <tr>
+    <td valign="top" align="left" style="padding: 0; background: transparent !important; background-color: transparent !important;">
+      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important;">
+        <tr>
+          <td valign="top" align="left" style="padding: 0 18px 12px 0; background: transparent !important; background-color: transparent !important;">
+            <img src="${logo}" alt="giftmall" width="135" height="135" style="width: 135px; height: 135px; display: block;">
+          </td>
+          <td valign="top" style="padding: 0; background: transparent !important; background-color: transparent !important;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: transparent !important; background-color: transparent !important;">
+              <tr>
+                <td style="background: transparent !important; background-color: transparent !important;">
+                  <h1 style="font-size: 18px; color: #210529; font-weight: 700; margin: 0 0 2px 0; padding-bottom: 6px; border-bottom: 1px solid #EBEBEB; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(greeting)}</h1>
+                  <div style="margin: 4px 0;">
+                    <a href="mailto:${email}" style="font-size: 11px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 2px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
+                    <span style="font-size: 11px; color: #210529; font-weight: 400; display: block; margin: 2px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
+                  </div>
+                  <div style="margin: 14px 0 4px 0; width: 100%;">
+                    <div style="display: inline-block; vertical-align: middle;">
+                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                        <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/linkedin.png" alt="LinkedIn" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                        <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/facebook.png" alt="Facebook" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                        <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/instagram.png" alt="Instagram" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
+                      </div>
+                      <div style="display: inline-block; margin-right: 34px; vertical-align: middle;">
+                        <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
+                      </div>
+                      <div style="display: inline-block; vertical-align: middle;">
+                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                          <img src="https://soloveyko23.github.io/edit-emails-for-giftmall/ima.png" alt="G2 High Performer" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                          <img src="https://soloveyko23.github.io/edit-emails-for-giftmall/getapp.png" alt="GetApp Best" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
+                          <img src="https://soloveyko23.github.io/edit-emails-for-giftmall/software.png" alt="Software Advice Best Recommended 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                        <div style="display: inline-block; vertical-align: middle;">
+                          <img src="https://soloveyko23.github.io/edit-emails-for-giftmall/capterra.png" alt="Capterra Best Ease of Use 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>;
+        }
+        
         function generateGmailVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText) {
-            return `
+            return 
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 12px; color: #210529;">
   <tr>
     <td valign="top" style="padding: 0 10px 10px 0;">
@@ -576,9 +619,9 @@
               <span style="font-size: 11px; display: block; margin: 2px 0;">${escapeHtml(phone)}</span>
             </div>
             <div style="margin: 6px 0;">
-              <a href="${linkedin}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="20" height="20" style="display: block; border-radius: 50%;"></a>
-              <a href="${facebook}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="20" height="20" style="display: block; border-radius: 50%;"></a>
-              <a href="${instagram}" style="display: inline-block; margin-right: 8px; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${linkedin}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/linkedin.png" alt="LinkedIn" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${facebook}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/facebook.png" alt="Facebook" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${instagram}" style="display: inline-block; margin-right: 8px; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/instagram.png" alt="Instagram" width="20" height="20" style="display: block; border-radius: 50%;"></a>
             </div>
             <a href="${website}" style="font-size: 10px; color: #210529; text-decoration: none; display: block; margin: 2px 0;">${escapeHtml(websiteText)}</a>
           </td>
@@ -586,74 +629,11 @@
       </table>
     </td>
   </tr>
-</table>`;
+</table>;
         }
         
-        // БАГ 4 ВИПРАВЛЕНО: Додано горизонтальну лінію після "Best Wishes!" (border-bottom: 1px solid #EBEBEB; padding-bottom: 6px)
-        // БАГ 3 ВИПРАВЛЕНО: Збільшено відступ між логотипом та контентом (padding: 0 18px 12px 0)
-        // БАГ 5 ВИПРАВЛЕНО: Розмір логотипу автоматично підлаштовується під контент (height: 100%)
-        // БАГ 1 та 6 ВИПРАВЛЕНО: Бейджі опущені нижче (margin: 14px) та відображаються правіше (margin-right: 34px)
-        function generateVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText) {
-            return `
-<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse; background: transparent !important; background-color: transparent !important;">
-  <tr>
-    <td valign="top" align="left" style="padding: 0; background: transparent !important; background-color: transparent !important;">
-      <table cellpadding="0" cellspacing="0" border="0" style="background: transparent !important; background-color: transparent !important; height: 100%;">
-        <tr>
-          <td valign="top" align="left" style="padding: 0 18px 12px 0; background: transparent !important; background-color: transparent !important; height: 100%;">
-            <img src="${logo}" alt="giftmall" width="120" style="width: 120px; height: 100%; object-fit: contain; display: block;">
-          </td>
-          <td valign="top" style="padding: 0; background: transparent !important; background-color: transparent !important;">
-            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: transparent !important; background-color: transparent !important;">
-              <tr>
-                <td style="background: transparent !important; background-color: transparent !important;">
-                  <h1 style="font-size: 18px; color: #210529; font-weight: 700; margin: 0 0 2px 0; padding-bottom: 6px; border-bottom: 1px solid #EBEBEB; line-height: 1.2; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(greeting)}</h1>
-                  <div style="margin: 4px 0;">
-                    <a href="mailto:${email}" style="font-size: 11px; color: #210529; font-weight: 600; text-decoration: none; display: block; margin: 2px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(email)}</a>
-                    <span style="font-size: 11px; color: #210529; font-weight: 400; display: block; margin: 2px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(phone)}</span>
-                  </div>
-                  <div style="margin: 14px 0 4px 0; width: 100%;">
-                    <div style="display: inline-block; vertical-align: middle;">
-                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
-                        <a href="${linkedin}" title="LinkedIn" style="display: inline-block; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
-                      </div>
-                      <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
-                        <a href="${facebook}" title="Facebook" style="display: inline-block; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
-                      </div>
-                      <div style="display: inline-block; margin-right: 34px; vertical-align: middle;">
-                        <a href="${instagram}" title="Instagram" style="display: inline-block; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; display: block;"></a>
-                      </div>
-                      <div style="display: inline-block; vertical-align: middle;">
-                        <div style="display: inline-block;  margin-right: 6px; vertical-align: middle;">
-                          <img src="ima.png" alt="G2 High Performer" width="32" height="32" style="width: 32px; height: 32px; display: block;">
-                        </div>
-                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
-                          <img src="getapp.png" alt="GetApp Best" width="32" height="32" style="width: 32px; height: 32px; display: block;">
-                        </div>
-                        <div style="display: inline-block; margin-right: 6px; vertical-align: middle;">
-                          <img src="software.png" alt="Software Advice Best Recommended 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
-                        </div>
-                        <div style="display: inline-block; vertical-align: middle;">
-                          <img src="capterra.png" alt="Capterra Best Ease of Use 2023" width="32" height="32" style="width: 32px; height: 32px; display: block;">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <a href="${website}" style="font-size: 10px; color: #210529; font-weight: 400; text-decoration: none; display: block; margin: 2px 0 4px 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;">${escapeHtml(websiteText)}</a>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>`;
-        }
-
-        // Спрощена версія для Gmail (без нагород, мінімум стилів)
         function generateGmailVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText) {
-            return `
+            return 
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 12px; color: #210529;">
   <tr>
     <td valign="top" style="padding: 0 10px 10px 0;">
@@ -669,9 +649,9 @@
               <span style="font-size: 11px; display: block; margin: 2px 0;">${escapeHtml(phone)}</span>
             </div>
             <div style="margin: 6px 0;">
-              <a href="${linkedin}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="linkedin.png" alt="LinkedIn" width="20" height="20" style="display: block; border-radius: 50%;"></a>
-              <a href="${facebook}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="facebook.png" alt="Facebook" width="20" height="20" style="display: block; border-radius: 50%;"></a>
-              <a href="${instagram}" style="display: inline-block; margin-right: 8px; text-decoration: none;"><img src="instagram.png" alt="Instagram" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${linkedin}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/linkedin.png" alt="LinkedIn" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${facebook}" style="display: inline-block; margin-right: 4px; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/facebook.png" alt="Facebook" width="20" height="20" style="display: block; border-radius: 50%;"></a>
+              <a href="${instagram}" style="display: inline-block; margin-right: 8px; text-decoration: none;"><img src="https://soloveyko23.github.io/edit-emails-for-giftmall/instagram.png" alt="Instagram" width="20" height="20" style="display: block; border-radius: 50%;"></a>
             </div>
             <a href="${website}" style="font-size: 10px; color: #210529; text-decoration: none; display: block; margin: 2px 0;">${escapeHtml(websiteText)}</a>
           </td>
@@ -679,7 +659,7 @@
       </table>
     </td>
   </tr>
-</table>`;
+</table>;
         }
         
         function escapeHtml(text) {
@@ -692,7 +672,6 @@
             const file = fileInput.files[0];
             if (!file) return;
             
-            // Проверяем, что это изображение
             if (!file.type.startsWith('image/')) {
                 alert('Будь ласка, виберіть файл зображення');
                 return;
@@ -705,16 +684,13 @@
                 const previewId = inputId + '-preview';
                 const preview = document.getElementById(previewId);
                 
-                // Обновляем поле ввода с base64 данными
                 input.value = base64;
                 
-                // Показываем превью с кнопкой очистки
-                preview.innerHTML = `
+                preview.innerHTML = 
                     <img src="${base64}" alt="Preview" class="preview-image">
                     <button type="button" class="clear-btn" onclick="clearImage('${inputId}')">Очистити</button>
-                `;
+                ;
                 
-                // Обновляем превью подписи
                 if (inputId === 'v1-photo') {
                     updatePreview(1);
                 } else if (inputId === 'v2-logo') {
@@ -730,22 +706,18 @@
             const preview = document.getElementById(previewId);
             const fileInput = document.getElementById(inputId + '-file');
             
-            // Восстанавливаем значение по умолчанию
             if (inputId === 'v1-photo') {
-                input.value = 'person.png';
+                input.value = 'https://soloveyko23.github.io/edit-emails-for-giftmall/person.png';
             } else if (inputId === 'v2-logo') {
-                input.value = 'giftmail.png';
+                input.value = 'https://soloveyko23.github.io/edit-emails-for-giftmall/giftmail.png';
             }
             
-            // Очищаем file input
             if (fileInput) {
                 fileInput.value = '';
             }
             
-            // Очищаем превью
             preview.innerHTML = '';
             
-            // Обновляем превью подписи
             if (inputId === 'v1-photo') {
                 updatePreview(1);
             } else if (inputId === 'v2-logo') {
@@ -759,7 +731,7 @@
                 const position = document.getElementById('v1-position').value || 'Position Position';
                 const email = document.getElementById('v1-email').value || 'giftmall@gmail.com';
                 const phone = document.getElementById('v1-phone').value || '+380 50 123 33 23';
-                const photo = document.getElementById('v1-photo').value || 'person.png';
+                const photo = document.getElementById('v1-photo').value || 'https://soloveyko23.github.io/edit-emails-for-giftmall/person.png';
                 const linkedin = document.getElementById('v1-linkedin').value || '#';
                 const facebook = document.getElementById('v1-facebook').value || '#';
                 const instagram = document.getElementById('v1-instagram').value || '#';
@@ -771,7 +743,7 @@
                 const greeting = document.getElementById('v2-greeting').value || 'Best Wishes!';
                 const email = document.getElementById('v2-email').value || 'giftmall@gmail.com';
                 const phone = document.getElementById('v2-phone').value || '+380 50 123 33 23';
-                const logo = document.getElementById('v2-logo').value || 'giftmail.png';
+                const logo = document.getElementById('v2-logo').value || 'https://soloveyko23.github.io/edit-emails-for-giftmall/giftmail.png';
                 const linkedin = document.getElementById('v2-linkedin').value || '#';
                 const facebook = document.getElementById('v2-facebook').value || '#';
                 const instagram = document.getElementById('v2-instagram').value || '#';
@@ -782,23 +754,21 @@
             }
         }
 
-        // Спрощений HTML саме для налаштувань Gmail
         function getGmailHTMLCode(variant) {
             if (variant === 1) {
                 const name = document.getElementById('v1-name').value || 'Name Surname';
                 const position = document.getElementById('v1-position').value || 'Position Position';
                 const email = document.getElementById('v1-email').value || 'giftmall@gmail.com';
                 const phone = document.getElementById('v1-phone').value || '+380 50 123 33 23';
-                let photo = document.getElementById('v1-photo').value || 'person.png';
+                let photo = document.getElementById('v1-photo').value || 'https://soloveyko23.github.io/edit-emails-for-giftmall/person.png';
                 const linkedin = document.getElementById('v1-linkedin').value || '#';
                 const facebook = document.getElementById('v1-facebook').value || '#';
                 const instagram = document.getElementById('v1-instagram').value || '#';
                 const website = document.getElementById('v1-website').value || 'https://www.giftmall.com.ua';
                 const websiteText = document.getElementById('v1-website-text').value || 'www.giftmall.com.ua';
                 
-                // Gmail має ліміт на довжину підпису, тому не підставляємо великі base64-картинки
                 if (photo && photo.startsWith('data:image')) {
-                    photo = 'person.png';
+                    photo = 'https://soloveyko23.github.io/edit-emails-for-giftmall/person.png';
                 }
                 
                 return generateGmailVariant1HTML(name, position, email, phone, photo, linkedin, facebook, instagram, website, websiteText);
@@ -806,46 +776,38 @@
                 const greeting = document.getElementById('v2-greeting').value || 'Best Wishes!';
                 const email = document.getElementById('v2-email').value || 'giftmall@gmail.com';
                 const phone = document.getElementById('v2-phone').value || '+380 50 123 33 23';
-                let logo = document.getElementById('v2-logo').value || 'giftmail.png';
+                let logo = document.getElementById('v2-logo').value || 'https://soloveyko23.github.io/edit-emails-for-giftmall/giftmail.png';
                 const linkedin = document.getElementById('v2-linkedin').value || '#';
                 const facebook = document.getElementById('v2-facebook').value || '#';
                 const instagram = document.getElementById('v2-instagram').value || '#';
                 const website = document.getElementById('v2-website').value || 'https://www.giftmall.com.ua';
                 const websiteText = document.getElementById('v2-website-text').value || 'www.giftmall.com.ua';
                 
-                // Для Gmail замінюємо великі base64-логотипи на короткий шлях
                 if (logo && logo.startsWith('data:image')) {
-                    logo = 'giftmail.png';
+                    logo = 'https://soloveyko23.github.io/edit-emails-for-giftmall/giftmail.png';
                 }
                 
                 return generateGmailVariant2HTML(greeting, email, phone, logo, linkedin, facebook, instagram, website, websiteText);
             }
         }
         
-        // Копирование визуального представления (для вставки в Word, Gmail и т.д.)
         async function copyVisual(variant) {
             const previewContainer = document.getElementById('preview-container');
             let html = previewContainer.innerHTML.trim();
             
-            // Агрессивно убираем все фоны из HTML и добавляем прозрачный фон
             html = html.replace(/style="([^"]*)"/gi, (match, styles) => {
-                // Удаляем все background свойства
                 let cleanStyles = styles.replace(/background[^:;'"]*:\s*[^;'"]+;?/gi, '');
                 cleanStyles = cleanStyles.replace(/background-color[^:;'"]*:\s*[^;'"]+;?/gi, '');
                 cleanStyles = cleanStyles.replace(/background-image[^:;'"]*:\s*[^;'"]+;?/gi, '');
-                // Добавляем прозрачный фон в начало
                 cleanStyles = 'background: transparent !important; background-color: transparent !important; ' + cleanStyles.trim();
-                return `style="${cleanStyles}"`;
+                return style="${cleanStyles}";
             });
-            // Для элементов без style добавляем прозрачный фон
             html = html.replace(/<(table|tr|td|div|span|a|h1|h2|h3|p)(\s+[^>]*?)(?!.*style=)(>)/gi, '<$1$2 style="background: transparent !important; background-color: transparent !important;"$3');
             
             try {
-                // Создаем временный элемент для копирования визуального представления
                 const tempDiv = document.createElement('div');
                 tempDiv.style.cssText = 'position: fixed; left: -9999px; top: 0; background: transparent !important; background-color: transparent !important; margin: 0; padding: 0; border: none;';
                 
-                // Создаем внутренний контейнер без фона
                 const innerDiv = document.createElement('div');
                 innerDiv.style.cssText = 'background: transparent !important; background-color: transparent !important;';
                 innerDiv.innerHTML = html;
@@ -853,22 +815,19 @@
                 
                 document.body.appendChild(tempDiv);
                 
-                // Выделяем содержимое внутреннего контейнера
                 const range = document.createRange();
                 range.selectNodeContents(innerDiv);
                 const selection = window.getSelection();
                 selection.removeAllRanges();
                 selection.addRange(range);
                 
-                // Копируем с форматированием
                 const success = document.execCommand('copy');
                 
-                // Удаляем временный элемент
                 document.body.removeChild(tempDiv);
                 selection.removeAllRanges();
                 
                 if (success) {
-                    const btn = document.getElementById(`copy-btn-${variant}`);
+                    const btn = document.getElementById(copy-btn-${variant});
                     const originalText = btn.textContent;
                     btn.textContent = '✓ Скопійовано!';
                     btn.classList.add('success');
@@ -881,17 +840,15 @@
                     throw new Error('execCommand failed');
                 }
             } catch (err) {
-                // Fallback: пробуем через Clipboard API
                 try {
-                    // Обертываем в div с прозрачным фоном и очищаем все фоны внутри
-                    const cleanHtml = `<div style="background: transparent !important; background-color: transparent !important;">${html}</div>`;
+                    const cleanHtml = <div style="background: transparent !important; background-color: transparent !important;">${html}</div>;
                     const clipboardItem = new ClipboardItem({
                         'text/html': new Blob([cleanHtml], { type: 'text/html' }),
                         'text/plain': new Blob([html], { type: 'text/plain' })
                     });
                     await navigator.clipboard.write([clipboardItem]);
                     
-                    const btn = document.getElementById(`copy-btn-${variant}`);
+                    const btn = document.getElementById(copy-btn-${variant});
                     const originalText = btn.textContent;
                     btn.textContent = '✓ Скопійовано!';
                     btn.classList.add('success');
@@ -906,7 +863,6 @@
             }
         }
         
-        // Копирование HTML-кода (для вставки в настройки email-клиента)
         async function copyHTMLCode(variant) {
             const previewContainer = document.getElementById('preview-container');
             const html = previewContainer.innerHTML.trim();
@@ -916,7 +872,7 @@
             
             try {
                 await navigator.clipboard.writeText(html);
-                const btn = document.getElementById(`copy-code-btn-${variant}`);
+                const btn = document.getElementById(copy-code-btn-${variant});
                 const originalText = btn.textContent;
                 btn.textContent = '✓ Код скопійовано!';
                 btn.classList.add('success');
@@ -930,7 +886,6 @@
             }
         }
 
-        // Копирование спрощеного HTML спеціально для Gmail
         async function copyGmailHTML(variant) {
             const html = getGmailHTMLCode(variant).trim();
             const output = document.getElementById('html-output');
@@ -939,7 +894,7 @@
             
             try {
                 await navigator.clipboard.writeText(html);
-                const btn = document.getElementById(`copy-gmail-btn-${variant}`);
+                const btn = document.getElementById(copy-gmail-btn-${variant});
                 const originalText = btn.textContent;
                 btn.textContent = '✓ Gmail HTML скопійовано!';
                 btn.classList.add('success');
@@ -953,7 +908,6 @@
             }
         }
         
-        // Ініціалізація прев'ю при завантаженні
         window.addEventListener('DOMContentLoaded', () => {
             updatePreview(2);
         });
